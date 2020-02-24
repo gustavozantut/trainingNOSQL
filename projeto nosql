@@ -1,0 +1,182 @@
+db.movies.insert([{  
+   "Nome":"De volta para o Futuro",
+   "Ano":1985,
+   "Atores":[  
+      {  
+         "Nome":"Michael J. Fox ",
+         "DataNascimento":"09/06/1961",
+         "Nacionalidade":"Americano"
+      },
+      {  
+         "Nome":"Christopher Lloyd ",
+         "DataNascimento":"22/10/1938",
+         "Nacionalidade":"Americano"
+      }
+   ],
+   "Diretores":[
+   {
+   "Nome":"Robert Zemeckis",
+   "DataNascimento":"09/06/1961",
+   "Nacionalidade":"Americano"
+   },
+   {
+   "Nome":"Gustavo Zantut",
+   "DataNascimento":"09/06/1961",
+   "Nacionalidade":"Alemao"
+   }
+   ],
+   "PremiosRecebidos":[
+   
+   "Oscar","Trofeu imprensa"
+   
+   ],
+   "Receita": 10000000.00
+},{  
+   "Nome":"ET",
+   "Ano":1978,
+   "Atores":[  
+      {  
+         "Nome":"Megan Fox",
+         "DataNascimento":"07/06/1981",
+         "Nacionalidade":"Ingles"
+      },
+      {  
+         "Nome":"Mauricio Meirelles",
+         "DataNascimento":"22/11/1978",
+         "Nacionalidade":"Mexicano"
+      }
+   ],
+   "Diretores":[
+   {
+   "Nome":"Quentin Tarantino",
+   "DataNascimento":"18/07/1968",
+   "Nacionalidade":"Escoces"
+   },
+   {
+   "Nome":"Roberto Garcia",
+   "DataNascimento":"09/12/1961",
+   "Nacionalidade":"Alemao"
+   }
+   ],
+   "PremiosRecebidos":[
+   
+   "Oscar"  
+   
+   ],
+   "Receita": 1000000.00
+},{  
+   "Nome":"A volta dos que nao foram",
+   "Ano":2019,
+   "Atores":[  
+      {  
+         "Nome":"Joesley Batista",
+         "DataNascimento":"17/06/1931",
+         "Nacionalidade":"Brasileiro"
+      },
+      {  
+         "Nome":"Joao Monteiro",
+         "DataNascimento":"20/11/1943",
+         "Nacionalidade":"Mexicano"
+      },
+      {  
+         "Nome":"Cleber Machado",
+         "DataNascimento":"22/11/1978",
+         "Nacionalidade":"Brasileiro"
+      }
+   ],
+   "Diretores":[
+   {
+   "Nome":"Luiz Inacio",
+   "DataNascimento":"18/07/1938",
+   "Nacionalidade":"Brasileiro"
+   },
+   {
+   "Nome":"Roberta Miranda",
+   "DataNascimento":"19/11/1961",
+   "Nacionalidade":"Brasileiro"
+   }
+   ],
+   "PremiosRecebidos":[
+   
+   "Oscar","Trofeu Imprensa","Coelho de Prata","Trofeu Candango"  
+   
+   ],
+   "Receita": 10000.00
+},{  
+   "Nome":"Lava Jato",
+   "Ano":2017,
+   "Atores":[  
+      {  
+         "Nome":"Jair Bolsonaro",
+         "DataNascimento":"17/06/1941",
+         "Nacionalidade":"Brasileiro"
+      },
+      {  
+         "Nome":"Sergio Moro",
+         "DataNascimento":"20/11/1963",
+         "Nacionalidade":"Irlandes"
+      },
+      {  
+         "Nome":"Paulo Guedes",
+         "DataNascimento":"12/09/1958",
+         "Nacionalidade":"Brasileiro"
+      },
+      {  
+         "Nome":"Dilma Roussef",
+         "DataNascimento":"12/09/1918",
+         "Nacionalidade":"Venezuelana"
+      },
+      {  
+         "Nome":"Gilmar Mendes",
+         "DataNascimento":"25/09/1928",
+         "Nacionalidade":"Frances"
+      },
+      {  
+         "Nome":"Dias Tofolli",
+         "DataNascimento":"25/10/1936",
+         "Nacionalidade":"Ingles"
+      }
+   ],
+   "Diretores":[
+   {
+   "Nome":"Luiz Inacio",
+   "DataNascimento":"18/07/1938",
+   "Nacionalidade":"Brasileiro"
+   },
+   {
+   "Nome":"Gilson Junior",
+   "DataNascimento":"15/03/1972",
+   "Nacionalidade":"Brasileiro"
+   }
+   ],
+   "PremiosRecebidos":[
+   
+   "Troféu Menina de Ouro","Troféu Redentor","Troféu Barroco","Troféu Calunga","Troféu Glauber Rocha","Troféu Eusélio Oliveira"
+   
+   ],
+   "Receita": 510000000.00
+}])
+
+#filme mais antigo?
+db.movies.find({},{"Nome":1,_id:0}).sort({"Ano":1}).limit(1)
+
+#quantos filmes temos?
+db.movies.count()
+
+#diretor do filme mais antigo?
+db.movies.find({},{"Nome":1,_id:0,"Diretores":1}).sort({"Ano":1}).limit(1)
+
+#diretor do filme mais novo?
+db.movies.find({},{"Nome":1,_id:0,"Diretores":1}).sort({"Ano":-1}).limit(1)
+
+#filme mais rentável?
+db.movies.find({},{"Nome":1,_id:0,"Receita":1}).sort({"Receita":-1}).limit(1)
+
+#atores do filme mais rentável
+db.movies.find({},{"Nome":1,_id:0,"Receita":1,"Atores":1}).sort({"Receita":-1}).limit(1)
+
+#ator brasileiro
+db.movies.find({"Atores.Nacionalidade":"Brasileiro"},{"Nome":1,_id:0,"Atores.Nome":1,"Atores.Nacionalidade":1})
+
+#filmes com mais de 2 premios
+db.movies.countDocument( { "Oscar".count: { $gt: 2 } }, {"Nome":1,_id:0} )
