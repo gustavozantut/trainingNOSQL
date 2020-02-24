@@ -1,0 +1,2 @@
+# trainingNOSQL
+Training some mongoDB
